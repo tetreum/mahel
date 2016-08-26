@@ -3,6 +3,7 @@ namespace App\Providers;
 
 use App\System\App;
 use App\System\Provider;
+use App\System\ProviderException;
 
 class SeriesBlanco extends \App\System\Provider
 {
@@ -10,7 +11,11 @@ class SeriesBlanco extends \App\System\Provider
 
     public function start ()
     {
-        $xml = simplexml_load_string($this->getRawContent($this->domain . "/sitemap.xml"));
+        $xml = @simplexml_load_string($this->getRawContent($this->domain . "/sitemap.xml"));
+        
+        if (empty($xml)) {
+            throw new ProviderException(ProviderException::CRAWLING_ERROR, "failed to fetch sitemap.xml");
+        }
 
         foreach ($xml->url as $obj)
         {
