@@ -19,7 +19,7 @@ class Pepecine extends \App\System\Provider
     private function crawlPage ($page)
     {
         $perPage = 40;
-        $json = $this->getJson($this->domain . "/titles/paginate?_token=" . $this->getToken() . "&perPage=" . $perPage . "&page=1&order=mc_num_of_votesDesc&type=movie&minRating=&maxRating=&availToStream=true");
+        $json = $this->getJson($this->domain . "/titles/paginate?_token=" . $this->getToken() . "&perPage=" . $perPage . "&page=$page&order=mc_num_of_votesDesc&type=movie&minRating=&maxRating=&availToStream=true");
 
         if (isset($json->items) && sizeof($json->items) > 1)
         {
