@@ -8,7 +8,12 @@ class Encrypter
     public static $ivSize = null;
     public static $iv = null;
 
-    public static function setKeys ($keys) {
+    public static function setKeys ($keys)
+    {
+        if (empty($keys["key"]) || empty($keys["ivSize"]) || empty($keys["iv"])) {
+            throw new \Exception("Missing required params");
+        }
+        
         self::$key = $keys["key"];
         self::$ivSize = $keys["ivSize"];
         self::$iv = base64_decode($keys["iv"]);
